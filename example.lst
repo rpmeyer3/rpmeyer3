@@ -1,0 +1,147 @@
+Microsoft (R) Macro Assembler Version 14.37.32825.0	    12/10/23 17:37:12
+example.asm						     Page 1 - 1
+
+
+				;program to calculate the surface area of a rectangular prism
+
+				.586
+				.MODEL FLAT
+				INCLUDE io.h
+			      C ; IO.H -- header file for I/O macros (listing suppressed)
+			      C .NOLIST      ; turn off listing
+			      C .LIST        ; begin listing
+			      C 
+				.STACK 4096
+
+ 00000000			.DATA
+ 00000000 00000000		input1        DWORD  ?
+ 00000004 00000000		input2        DWORD  ?
+ 00000008 00000000		input3      DWORD  ?
+
+ 0000000C 49 6E 70 75 74	prompt1 BYTE    "Input 1: (0-50)", 0
+	   20 31 3A 20 28
+	   30 2D 35 30 29
+	   00
+ 0000001C 49 6E 70 75 74	prompt2 BYTE    "Input 2: (0-50)", 0
+	   20 32 3A 20 28
+	   30 2D 35 30 29
+	   00
+ 0000002C 49 6E 70 75 74	prompt3 BYTE    "Input 3:(0-50)", 0
+	   20 33 3A 28 30
+	   2D 35 30 29 00
+ 0000003B  0000001E [		string  BYTE    30 DUP (?)
+	    00
+	   ]
+ 00000059 54 68 65 20 72	totallbl BYTE    "The resulting value is: ", 0
+	   65 73 75 6C 74
+	   69 6E 67 20 76
+	   61 6C 75 65 20
+	   69 73 3A 20 00
+ 00000072  0000000B [		totalval BYTE    11 DUP (?), 0
+	    00
+	   ] 00
+
+ 00000000			.CODE
+ 00000000			_MainProc PROC
+				        input   prompt1, string, 30   ; get input1
+				        atod    string          ; convert to integer
+ 0000002D  A3 00000000 R	        mov     input1, eax       ; store in memory
+
+				        input   prompt2, string, 40    ; repeat for the rest
+				        atod    string
+ 0000005F  A3 00000004 R	        mov     input2, eax
+
+				        input   prompt3, string, 40     ;repeat
+				        atod    string 
+ 00000091  A3 00000008 R	        mov     input3, eax
+				        
+ 00000096  A1 00000000 R	        mov     eax, input1 ;move input1 to eax
+ 0000009B  8B 1D 00000004 R	        mov     ebx, input2 ;move input2 to ebx
+ 000000A1  8B 0D 00000008 R	        mov     ecx, input3 ;move input3 to ecx
+				        
+ 000000A7  03 C3		        add     eax, ebx    ;add input1 and input2
+ 000000A9  F7 E9		        imul    ecx         ;multiply by input3
+ 000000AB  8B C8		        mov     ecx, eax    ;move eax to ecx
+ 000000AD  B8 00000002		        mov     eax, 2      ;move 2 to eax
+ 000000B2  F7 EB		        imul    ebx         ;multiply by input2
+ 000000B4  8B D8		        mov     ebx, eax    ;move eax to ebx
+ 000000B6  8B C1		        mov     eax, ecx    ;move ecx to eax
+ 000000B8  F7 F3		        div     ebx         ;divide by 2 * input2
+
+				        
+				        dtoa    totalval, eax       ; convert to ASCII
+				        output  totallbl, totalval   ; output label and area
+
+ 000000EB  B8 00000000		        mov     eax, 0  ; exit with return code 0
+ 000000F0  C3			        ret
+
+ 000000F1			_MainProc ENDP
+				END
+
+
+Microsoft (R) Macro Assembler Version 14.37.32825.0	    12/10/23 17:37:12
+example.asm						     Symbols 2 - 1
+
+
+
+
+Macros:
+
+                N a m e                 Type
+
+atod . . . . . . . . . . . . . .	Proc
+atow . . . . . . . . . . . . . .	Proc
+dtoa . . . . . . . . . . . . . .	Proc
+input  . . . . . . . . . . . . .	Proc
+output . . . . . . . . . . . . .	Proc
+wtoa . . . . . . . . . . . . . .	Proc
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 Para	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 0000007E Para	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 000000F1 Para	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+_MainProc  . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 000000F1 Public
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000000h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+_getInput  . . . . . . . . . . .	L Near	 00000000 FLAT	External
+_showOutput  . . . . . . . . . .	L Near	 00000000 FLAT	External
+atodproc . . . . . . . . . . . .	L Near	 00000000 FLAT	External
+atowproc . . . . . . . . . . . .	L Near	 00000000 FLAT	External
+dtoaproc . . . . . . . . . . . .	L Near	 00000000 FLAT	External
+input1 . . . . . . . . . . . . .	DWord	 00000000 _DATA	
+input2 . . . . . . . . . . . . .	DWord	 00000004 _DATA	
+input3 . . . . . . . . . . . . .	DWord	 00000008 _DATA	
+prompt1  . . . . . . . . . . . .	Byte	 0000000C _DATA	
+prompt2  . . . . . . . . . . . .	Byte	 0000001C _DATA	
+prompt3  . . . . . . . . . . . .	Byte	 0000002C _DATA	
+string . . . . . . . . . . . . .	Byte	 0000003B _DATA	
+totallbl . . . . . . . . . . . .	Byte	 00000059 _DATA	
+totalval . . . . . . . . . . . .	Byte	 00000072 _DATA	
+wtoaproc . . . . . . . . . . . .	L Near	 00000000 FLAT	External
+
+	   0 Warnings
+	   0 Errors
