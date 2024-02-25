@@ -1,6 +1,4 @@
-; data conversion procedures - 32-bit versions
-; author:  R. Detmer
-; revised: 10/2007
+; data conversion procedures
 
 .586
 .MODEL FLAT
