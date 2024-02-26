@@ -3,7 +3,6 @@
 
 ; 32-bit version with windows I/O
 ; must be used with project framework defining showOutput and getInput
-; R. Detmer   October 2007
 .586
 EXTRN _getInput:NEAR32, _showOutput:NEAR32, atodproc:NEAR32, dtoaproc:NEAR32, wtoaproc:NEAR32, atowproc:NEAR32
 
