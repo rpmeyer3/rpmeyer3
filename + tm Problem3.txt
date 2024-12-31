@@ -1,0 +1,22 @@
+:+ tm Problem3
+Q={q0,q1,qa,qr,q2,q3}
+S={a,b}
+T={a,b,\_}
+q0=q0
+tapes=2
+
+q0->qr:\_,S; \_,S  /*If both tapes are empty, reject */
+ q0->q1:a,S; \_,R /*If tape1 reads ‘a’ and tape2 is empty, move right on tape2 */
+q0->qa:b,S;\_,S   /*If tape1 reads ‘b’ and tape2 is empty, accept */
+q1:a,R; \_->a,R    /*If tape1 reads ‘a’ and tape2 is empty, move right on both tapes */
+q1->q2:b,S;\_,L   /* If tape1 reads ‘b’ and tape2 is empty, move left on tape2 */
+q1->qa:\_,S;\_,S  /*If tape1 is empty and tape2 is empty, accept */
+q2:b,S; a,L           /*If tape1 reads ‘b’ and tape2 reads ‘a’, move left on tape2*/
+q2->q3:b,S;\_,R  /*If tape1 reads ‘b’ and tape2 is empty, move right on tape2*/
+q3:b,R; a,R          /*If tape1 reads ‘b’ and tape2 reads ‘a’, move right on both tapes*/
+q3->qr:\_,S;\_,S  /*If both tapes are empty, reject*/ 
+q3->qa:\_,S; a,S  /*If tape1 is empty and tape2 reads ‘a’, accept */
+q3->qr:a,S; a,S   /*If both tapes read ‘a’, reject */
+q3->qr:a,S; \_,S  /*If tape1 reads ‘a’ and tape2 is empty, reject*/
+q3->qa:b,S;\_,S  /*If tape1 reads ‘b’ and tape2 is empty, accept */
+done.

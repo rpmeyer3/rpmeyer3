@@ -1,0 +1,122 @@
+_> CSCI 2670 - Classwork 13
+__ <!> Instructions
+|> Create a \graf document with your answers to the following problems.  Save your work as a Grafstate file with the extension **{.graf.txt} and upload it to eLC.
+|> You may work in small groups.  You must identify your group on eLC.
+|> Only one student in the group should do the eLC  submission.
+|> Look at your file when you save it and *{before} submitting it to eLC to make sure it is what you intend to submit.  Check eLC *{after} submitting your file to make sure the correct file was uploaded.  It is your responsibility to submit the correct file.
+|> The last version of your answer file that you submit before the deadline is the one that will be graded. If you submit the wrong file and submit a replacement after the deadline, then the usual late policy will apply.
+|>  All Grafstate files should compile when the TA loads them into the Grafstate Shell. A file that does not compile will not be graded.
+@{*}All TMs must be deterministic.
+\;
+Group members:
+1.)_____________________
+2.)_____________________
+3.)_____________________
+4.)_____________________
+5.)_____________________
+\;
+__ @{task} Exercises
+Let A={w|w is a binary string containing at least 2 consecutive *{1}s !{and} an even number of \[1]s}.  Let B={a^ib^jc^k:0 \lt i \lt j \lt k}.
+//
+(1) Show the YES/NO table for A and B.
+A={w∣w is a binary string containing at least 2 consecutive 1's and an even number of 1's}
+//
+:fig table
+String #Is in A? # Explanation
+'0' #No #Contains no 1's
+11 #Yes #No consecutive 1's, total 1's is even
+101 #No #Contains even 1's but is not consecutive
+1110 #Yes # Has consecutive 1's, total 1's is even
+11011 #No #Has consecutive 1's but tota1's is odd
+done.
+//
+B = {a^ib^jc^k ∣ 0 < i < j < k}
+//
+:fig table
+String #Is in B? # Explanation
+abc #Yes #1 < 2 < 3: Meets conditions.
+aabcc #No #2 \ge 1: Violates i < j < k.
+aabbccc #Yes #2 < 3: Meets conditions.
+ab #No #j \ge k: Violates i < j < k.
+aaabbbcc #Yes #3 < 6: Meets conditions.
+done.
+//
+//
+(2) Construct a @mredtn @fn to show that A\mred B.  Write the \graf code for a Turing machine that computes your @mredtn @fn.
+We need to construct a mapping function f(w) that transforms an instance of w ∈ A into f(w) ∈ B, such that:
+w \in A => f(w) \in B
+w ∈ / A⟹f(w) \!in B.
+//
+Reduction Function
+Input: A binary string w.
+Output: A string f(w) ∈ B.
+The mapping function is constructed as follows:
+If w ∈ A, count the number of 1s in w, say n. Encode the result as a^nb^n^+^1c^n^+^2.
+If w \!in A, encode the result as a^1b^1c^1, which violates the condition i<j<k.
+//
+Example
+w=110 (in A): Contains two consecutive 1s and an even number of 1s (n = 2).
+f(w) = a^2b^3c^4 \in B
+w=1010 (not in A): Does not satisfy A's conditions.
+f(w) = a^1b^1c^1! \in B
+//
+A mapping reduction maps elements of a certain string set A to a string set B while preserving membership. According to Equation B, the functions f(w) for w ∈ A store the count of 1s as a^n^+^1b^n^+^2c^n^+^2. For w \!in A, f(w) returns a string which is still against the constraints of B. This guaruntees that the transformation of the FSA does not change the YES/NO behavior.
+//
+:+ tm ReductionFunction
+Q={qa,qr,q0,q1,q2,q3,q4,q5}
+S={a,b, c, 0,1}
+T={a,b, c, 0, 1, \_}
+q0=q0
+tapes = 2
+
+q0 -> q1: 1, S;\_, R   /* Start by reading the first '1'. */
+q0 -> qr: 0, S; \_, S    /* Reject if input does not contain '1'. */
+q1 -> q2: 1, S; \_, R    /*  Count all '1's in the input. */
+q1 -> q3: 0, S; \_, L    /*  End of the string. */
+q2 -> q2: 1, S; \_, R    /*  Continue scanning for '1's. */
+q2 -> q3: 0, S; \_, L    /*  Finish the count. */
+q3 -> q4: \_, S; a, R    /*  Start writing a^n. */
+q4 -> q4: \_, S; a, R    /*  Write all 'a's. */
+q4 -> q5: \_, S; b, R    /*  Start writing b^{n+1}. */
+q5 -> q5: \_, S; b, R    /*  Write all 'b's. */
+q5 -> qa: \_, S; c, R    /*  Start writing c^{n+2} and accept. */
+done.
+//
+//
+//
+//
+The Turing machine takes a binary word w as an input, then counts the number of is, and writes a^nb^n^+^1c^n^+^2 string on the tape. Writing the output, then counting 1's, and, finally, reading the input is the ideal states through which the states ought to switch. If w doesn’t satisfy the requirements of A, the machine produces a non-admissible string, thus making a refusal behind the back.
+//
+(3) Choose a string w_Y that represents YES for A and a string w_N that represents NO for A.  Show the simulation output for your TM on w_Y and w_N.
+//
+//
+:sim ReductionFunction 11
+//
+//
+//
+:sim ReductionFunction 101
+//
+//
+(4) Prove that your @fn from @{(2)} has the @mredtn property.
+//
+1. w \in A => f(w) \in B
+if w \in A then f(W) = a^nb^n^+^1c^n^+^2 which satisfies 0 < n < n + 1 < n + 2
+this f(w) \in B
+//
+2. w \!in A => f(w) \!in B
+if w \!in A then f(w) = a^1b^1c^1 violates the condition i < j < k
+thus  f(w) \!in B
+//
+(5) Prove that E_{CFG} \mred E_{PDA}.
+> [a] Find a mapping reduction function.
+//
+1. Construct a PDA M that simulates the derivations of G.
+2. If L(G) = \0, then L(M) = \0
+3. If L(G) != \0, then L(M) != \0
+//
+> [b] Prove that your function has the mapping reduction property.
+//
+1.) if G \in E_C_F_G, then f(G) = M \in E_P_D_A since L(G) = \0 => L(M) = \0
+2. ) if G \in E_C_F_G , then f(G) = M \in E_P_D_A since L(G) != \0 => L(M) != \0
+//
+The reduction demonstrates the fact that checking emptiness of a context free grammar (E_C_F_G) can be transform into checking emptiness of a push down automata (E_P_D_A). The given function allows to transform a CFG G into a PDA M that would accept the language accepted by G. If L(G) = \0, then L(M) = \0, this means that we have preserved the decision problem and that is our reduction.

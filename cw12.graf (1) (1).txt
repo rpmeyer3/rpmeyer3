@@ -1,0 +1,155 @@
+_> CSCI 2670 - Classwork 12
+__ <!> Instructions
+|> Create a \graf document with your answers to the following problems.  Save your work as a Grafstate file with the extension **{.graf.txt} and upload it to eLC.
+|> You may work in small groups.  You must identify your group on eLC.
+|> Only one student in the group should do the eLC  submission.
+|> Look at your file when you save it and *{before} submitting it to eLC to make sure it is what you intend to submit.  Check eLC *{after} submitting your file to make sure the correct file was uploaded.  It is your responsibility to submit the correct file.
+|> The last version of your answer file that you submit before the deadline is the one that will be graded. If you submit the wrong file and submit a replacement after the deadline, then the usual late policy will apply.
+|>  All Grafstate files should compile when the TA loads them into the Grafstate Shell. A file that does not compile will not be graded.
+@{*}All TMs must be deterministic.
+\;
+Group members:
+1.) Tyler Corse
+2.) Ryan Meyer
+3.) Jack Phalen
+4.)_____________________
+5.)_____________________
+\;
+__ One's complement
+> One's complement is a method of encoding negative numbers.  You can compute the One's complement of a binary number as @fllws:
+> [1] Flip each bit.
+//
+The @fllwng table shows an encoding @exm for a 4-bit register:
+//
+:fig table : cell><
+n (binary) # n (decimal) # -n (binary) # -n (decimal)
+0000 # '0' # 1111 # -0=0
+0001 # 1 # 1110 # -1
+0010 # 2 # 1101 # -2
+0011 # 3 # 1100 # -3
+0100 # 4 # 1011 # -4
+0101 # 5 # 1010 # -5
+0110 # 6 # 1001 # -6
+0111 # 7 # 1000 # -7
+done.
+//
+[nb] The one's complement on -n produces the number n.
+[nb] Only the numbers -7 through 7 can be stored using one's complement with 4 bits.
+[nb] One's complement is inconvenient @bc there are 2 different binary strings that represent 0, namely \[0000] and \[1111].
+//
+__ Two's complement
+> The two's complement method is a modification of one's complement that fixes the problem of there being two different binary numbers representing 0.  You can compute the two's complement of a binary number as @fllws:
+> [1] Compute the one's complement
+> [2] Add 1
+//
+> Below is a table showing the two's complement encodings for a 4-bit register:
+//
+:fig table : cell><
+n (binary) # n (decimal) # one's complement # two's complement # -n (decimal)
+0000 # '0' # 1111 # !{0000} # '0'
+0001 # 1 # 1110 # 1111 #  -1
+0010 # 2 # 1101 # 1110 # -2
+0011 # 3 # 1100 # 1101 # -3
+0100 # 4 # 1011 # 1100 # -4
+0101 # 5 # 1010 # 1011 # -5
+0110 # 6 # 1001 # 1010 # -6
+0111 # 7 # 1000 # 1001 # -7
+done.
+//
+[nb] The two's complement of -n produces n.
+[nb] The two's complement of \[0000] would have created \[10000], but since the register is overflowed, only \[0000] is left.
+//
+//
+1. Write \graf code for a Turing machine that computes the one's complement of a binary string.
+:+ tm M_1
+Q={q0,q1,qa,qr}
+S={1,0}
+T={0,1,\_}
+tapes=1
+q0=q0
+q0->q1:1->0,R /*Reverses 1's and 0's
+q0->q1:0->1,R /*Reverses 1's and 0's
+q1:1->0,R /*Reverses 1's and 0's
+q1:0->1,R /*Reverses 1's and 0's
+q1->qa:\_->\_,S /*Accepts 
+q0->qr:\_->\_,S /*Rejects empty string
+done.
+//
+2. Write \graf code for a Turing machine that computes the two's complement of a binary string.
+:+ tm M_2
+Q={q0,q1,q2,q3,q4,q5,q6,qa,qr}
+S={0,1}
+T={0,1,\_}
+tapes=1
+q0=q0
+q0->q1:1->0,R /*One's complement
+q0->q2:0->1,R /*One's complement
+q1->q3:\_->\_,L /*Starts next step
+q1:1->0,R /*One's complement
+q1:0->1,R /*One's complement
+q2->q1:1->0,R /*Accounts for no overflow
+q2:0->1,R /*One's complement
+q2->q5:\_->\_,L /*Accounts for overflow
+q5:1->0,L /*Changes all 1's to 0's in case of overflow
+q5->q6:0->0,R /*Moves tape right
+q6:0->0,R /*Moves tape right
+q6->qa:\_->\_,S /*Accepts overflow branch
+q3->q4:0->1,R /*Ends addition
+q3:1->0,L /*Adds 1
+q4->qa:\_->\_,S /*Accepts non-overflow branch
+q4:1->1,R /*Moves tape right
+q4:0->0,R /*Moves tape right
+q0->qr:\_->\_,S /*Rejects empty string
+done.
+//
+3. Create a *{deterministic} @tm to compute the reverse of a string \S={a,b}.
+//
+:+ tm M_3
+Q={q0,q1,q2,q3,q4,qa}
+S={a,b}
+T={a,b,\_,#}
+tapes=2
+q0=q0
+q0->q1:{a,b},S;\_->#,R /*Creates marker for tape 2
+q1:a->a,R;\_->a,R /*Adds to tape 2
+q1:b->b,R;\_->b,R /*Adds to tape 2
+q1->q2:\_->\_,S;\_->\_,L /*Stops machine
+q2:\_->\_,S;{a,b},L /*Moves tape 2 backwards
+q2->q3:\_->\_,L;#->#,R /*Prepares tape for next step
+q3:a->a,L;a->a,R /*Reverse
+q3:b->a,L;a->a,R /*Reverse
+q3:b->b,L;b->b,R /*Reverse
+q3:a->b,L;b->b,R /*Reverse
+q3->q4:{a,b},R;\_->\_,S /*Moves first tape forward
+q4:{a,b},R;\_->\_,S /*Moves first tape forward
+q4->qa:\_->\_,S;\_->\_,S /*Accepts
+q0->qa:\_->\_,S;\_->\_,S /*Accepts empty string
+done.
+4.  Write the \graf code for a Turing machine that enumerates the @lang L={a^*b^*}.
+:+ tm M_4
+Q={q0,q1,q2,q3,q4,q5,q6,q7,q8}
+S={a,b}
+T={a,b,\_,#}
+tapes=2
+q0=q0
+q0->q1:\_->#,R;\_->#,R /*Starts with marker
+q1->q2:\_->\_,S;\_->a,S /*Increases length of second tape
+q2:\_->\_,S;a->a,L /*Rewinds second tape
+q2->q3:\_->\_,S;#->#,R /*Rewinds second tape again
+q3:\_->a,R;a->a,R /*Prints initial combo to first tape
+q3->q4:\_->#,R;\_->\_,L /*Puts mark to separate that from previous word
+q4->q5:\_->\_,S;a->b,L /*Replaces a with b in second tape
+q4:\_->\_,S;b->b,L /*Goes to left for all b's
+q5:\_->\_,S;a->a,L /*Shifts tape to left for rest of a's
+q5->q6:\_->\_,S;#->#,R /*Reverses second tape
+q6->q7:\_->a,R;a->a,R /*Prints new string
+q6->q7:\_->b,R;b->b,R /*Prints new string
+q7:\_->a,R;a->a,R /*Prints new string
+q7:\_->b,R;b->b,R /*Prints new string
+q7->q4:\_->#,R;\_->\_,L /*Starts cycle again
+q4->q8:\_->\_,S;#->#,R /*Ends cycle once there are no more a's
+q8:\_->\_,S;b->a,R /*Changes all b's in second tape to a's
+q8->q1:\_->\_,S;\_->\_,S /*Starts cycle all over again
+done.
+@{*} You will not get credit if your machine only works for the @exm.
+@{*} To receive full credit, you must comment your transitions.
