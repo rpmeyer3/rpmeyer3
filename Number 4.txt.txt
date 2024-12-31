@@ -1,0 +1,44 @@
+// Number 4.txt
+
+#4
+% DFA recognizing L(M1) U L(M2)
+Automaton M_s
+States -> Q_s = Q_1 x Q_2 = {(q_i,\!q_j) | q_i \in Q_1, \!q_j \in Q_2
+Start State: (q_0, \!q_0)
+Final States: F = {(q_1,q_2) | q_1 \in F_1 or q_2 \in F_2}
+Transition Function: \d((q_i,\!q_j),a) = (\d_1(q_i,a), \d(\!q_j,a))
+\d((q_i,\!q_j),b) = (\d_1(q_i,b), \d(\!q_j,b))
+States: q0_q0', q0_q1', q0_qd', q1_q0', q1_q1', q1_qd', q2_q0', q2_q1', q2_qd', qd_q0', qd_q1', qd_qd'
+\S = {a, b}
+Initial: q0_q0'
+d stands for that respective machines "dead" state FYI
+Final: q2_q0', q2_q1', q1_q1', q0_q1', q2_qd', q1_qd', q0_qd'
+Transitions:
+q0q0' -> q0\q0' on a
+q0q0' -> q1q1' on b
+q1q0' -> q2q0' on a
+q1q0' -> qdq1' on b
+q2q0' -> qdq0' on a
+q2q0' -> qdq1' on b
+q0q1' -> q0q1' on a
+q0q1' -> q1q1' on b
+q1q1' -> q2q1' on a
+q1q1' -> qdq1' on b
+q2q1' -> qdq1' on a
+q2q1' -> qdq1' on b
+qdq0' -> qdq0' on a
+qdq0' -> qdq1' on b
+qdq1' -> qdq1' on a
+qdq1' -> qdq1' on b
+q0qd' -> q0qd' on a
+q0qd' -> q1qd' on b
+q1qd' -> q2qd' on a
+q1qd' -> qdqd' on b
+q2qd' -> qdqd' on a
+q2qd' -> qdqd' on b
+qdqd' -> qdqd' on a
+qdqd' -> qdqd' on b
+
+Why no incoming transitions?
+if the state of M_1 is only reachable after reading a specific sequence of character such as only reading two characters,M_2 would require a completely different sequence, this makes it so M_s would be unreachable.
+additionally, a dead state in either M_1 or M_2 could lead toa  certain unrechable combined state that exists in M_s becuase once in a dead state of any DFA the further proccesses become irrelevant.

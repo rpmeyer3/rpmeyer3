@@ -1,0 +1,45 @@
+a)
+M_1 = {Q_1, \S, \d_1, q_1_,_0 ,F_1}
+M_2 = {Q_2, \S, \d_2, q_2_,_0 ,F_2}
+States: Q_4 = Q_1 \* Q_2
+\S = {a,b}
+Start State (q_1_,_0,q_2_,_0_)
+Final State: F_4 = {(q_1,q_2) | q_1 \in F_1 and q_2 \in F_2}
+Transition Function:  \d_4((q_1,q_2),a) = (\d_1(q_1,a), \d_2(q_2,a))
+\d_4((q_1,q_2),b) = (\d_1(q_1,b), \d_2(q_2,b))
+% DFA recognizing L(M1) ∩ L(M2)
+Automaton M4
+States: q0q0', q0q1', q0qd', q1q0', q1q1', q1qd', q2q0', q2q1', q2qd', qdq0', qdq1', qdqd'
+Alphabet: a, b
+Initial: q0q0'
+Final: q2q1'
+Transitions:
+q0q0' -> q0q0' on a
+q0q0' -> q1q1' on b
+q1q0' -> q2q0' on a
+q1q0' -> qdq1' on b
+q2q0' -> qdq0' on a
+q2q0' -> qdq1' on b
+q0q1' -> q0q1' on a
+q0q1' -> q1q1' on b
+q1q1' -> q2q1' on a
+q1q1' -> qdq1' on b
+q2q1' -> qdq1' on a
+q2q1' -> qdq1' on b
+qdq0' -> qdq0' on a
+qdq0' -> qdq1' on b
+qdq1' -> qdq1' on a
+qdq1' -> qdq1' on b
+q0qd' -> q0qd' on a
+q0qd' -> q1qd' on b
+q1qd' -> q2qd' on a
+q1qd' -> qdqd' on b
+q2qd' -> qdqd' on a
+q2qd' -> qdqd' on b
+qdqd' -> qdqd' on a
+qdqd' -> qdqd' on b
+
+b) Final States: In the union pair (q_1, q_2) is a final state if either q_1 or q_2 is a final state in thier respective machines 
+for the intersection we only include (q_1,q_2) as final states if both q_1 and q_2 are final sates in thier respective automata. The trasition function si the same as in the union algorithm because it pairs the transitions from both DFA's. only paths that are accepting in both automata will be accepted in the intersection.
+
+c.) Knowing that the modifed alorgithm works is due to the algorithm correctly recognzing the intersection of the two languages by sychronizing the transitions: and accepting only when both DFA's accept simultaneously. The synchronization is for each input symbol, the combined DFA M follows the transitions of both M_1 and M_2 simultaneously, (q_1, q_2) in M represents the movement in M_1 and M_2 after the same string. M also accepts when M_1 and M_2 accept making sure the string in intersection. Thus we know both closure properties are under lock for our new algorithm.

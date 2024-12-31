@@ -1,0 +1,135 @@
+#4
+DFA recognizing L(M1) U L(M2)
+Automaton Ms
+States ⟶ Qs = Q1 x Q2 = {(qi,¬qj) ∣ qi ∈ Q1, ¬qj ∈ Q2
+Start State∶ (q0, ¬q0)
+Final States∶ F = {(q1,q2) ∣ q1 ∈ F1 or q2 ∈ F2}
+Transition Function∶ δ((qi,¬qj),a) = (δ1(qi,a), δ(¬qj,a))
+δ((qi,¬qj),b) = (δ1(qi,b), δ(¬qj,b))
+States∶ q0q0', q0q1', q0qd', q1q0', q1q1', q1qd', q2q0', q2q1', q2qd', qdq0', qdq1', qdqd'
+Σ = {a, b}
+Initial∶ q0q0'
+d stands for that respective machines "dead" state FYI
+Final∶ q2q0', q2q1', q1q1', q0q1', q2qd', q1qd', q0qd'
+Transitions∶
+q0q0' ⟶ q0\q0' on a
+q0q0' ⟶ q1q1' on b
+q1q0' ⟶ q2q0' on a
+q1q0' ⟶ qdq1' on b
+q2q0' ⟶ qdq0' on a
+q2q0' ⟶ qdq1' on b
+q0q1' ⟶ q0q1' on a
+q0q1' ⟶ q1q1' on b
+q1q1' ⟶ q2q1' on a
+q1q1' ⟶ qdq1' on b
+q2q1' ⟶ qdq1' on a
+q2q1' ⟶ qdq1' on b
+qdq0' ⟶ qdq0' on a
+qdq0' ⟶ qdq1' on b
+qdq1' ⟶ qdq1' on a
+qdq1' ⟶ qdq1' on b
+q0qd' ⟶ q0qd' on a
+q0qd' ⟶ q1qd' on b
+q1qd' ⟶ q2qd' on a
+q1qd' ⟶ qdqd' on b
+q2qd' ⟶ qdqd' on a
+q2qd' ⟶ qdqd' on b
+qdqd' ⟶ qdqd' on a
+qdqd' ⟶ qdqd' on b
+Why no incoming transitions?
+if the state of M1 is only reachable after reading a specific sequence of character such as only reading two characters,M2 would require a completely different sequence, this makes it so Ms would be unreachable.
+additionally, a dead state in either M1 or M2 could lead to a certain unreachable combined state that exists in Ms becuase once in a dead state of any DFA the further proccesses become irrelevant.
+#5
+a)
+M1 = {Q1, Σ, δ1, q1,0 ,F1}
+M2 = {Q2, Σ, δ2, q2,0 ,F2}
+States∶ Q4 = Q1  Q2
+Σ = {a,b}
+Start State (q1,0,q2,0)
+Final State∶ F4 = {(q1,q2) ∣ q1 ∈ F1 and q2 ∈ F2}
+Transition Function∶ δ4((q1,q2),a) = (δ1(q1,a), δ2(q2,a))
+δ4((q1,q2),b) = (δ1(q1,b), δ2(q2,b))
+DFA recognizing L(M1) ∩ L(M2)
+Automaton M4
+States∶ q0q0', q0q1', q0qd', q1q0', q1q1', q1qd', q2q0', q2q1', q2qd', qdq0', qdq1', qdqd'
+Alphabet∶ a, b
+Initial∶ q0q0'
+Final∶ q2q1'
+Transitions∶
+q0q0' ⟶ q0q0' on a
+q0q0' ⟶ q1q1' on b
+q1q0' ⟶ q2q0' on a
+q1q0' ⟶ qdq1' on b
+q2q0' ⟶ qdq0' on a
+q2q0' ⟶ qdq1' on b
+q0q1' ⟶ q0q1' on a
+q0q1' ⟶ q1q1' on b
+q1q1' ⟶ q2q1' on a
+q1q1' ⟶ qdq1' on b
+q2q1' ⟶ qdq1' on a
+q2q1' ⟶ qdq1' on b
+qdq0' ⟶ qdq0' on a
+qdq0' ⟶ qdq1' on b
+qdq1' ⟶ qdq1' on a
+qdq1' ⟶ qdq1' on b
+q0qd' ⟶ q0qd' on a
+q0qd' ⟶ q1qd' on b
+q1qd' ⟶ q2qd' on a
+q1qd' ⟶ qdqd' on b
+q2qd' ⟶ qdqd' on a
+q2qd' ⟶ qdqd' on b
+qdqd' ⟶ qdqd' on a
+qdqd' ⟶ qdqd' on b
+b) Final States∶ In the union pair (q1, q2) is a final state if either q1 or q2 is a final state in thier respective machines
+for the intersection we only include (q1,q2) as final states if both q1 and q2 are final sates in thier respective automata. The trasition function si the same as in the union algorithm because it pairs the transitions from both DFA's. only paths that are accepting in both automata will be accepted in the intersection.
+c.) Knowing that the modifed alorgithm works is due to the algorithm correctly recognzing the intersection of the two languages by sychronizing the transitions∶ and accepting only when both DFA's accept simultaneously. The synchronization is for each input symbol, the combined DFA M follows the transitions of both M1 and M2 simultaneously, (q1, q2) in M represents the movement in M1 and M2 after the same string. M also accepts when M1 and M2 accept making sure the string in intersection. Thus we know both closure properties are under lock for our new algorithm.
+#6
+a) Constructing Ms
+States∶ Qs = Q4 … same as M4 I believe
+Alphabet∶ Σ = { a,b}
+Start State∶ qs,0 = (q1,0, q2,0)
+Fs = Qs \ F4
+DFA recognizing the complement of L(M4)
+Automaton Ms
+States∶ q0q0', q0q1', q0qd', q1q0', q1q1', q1qd', q2q0', q2q1', q2qd', qdq0', qdq1', qdqd'
+Alphabet∶ a, b
+Initial∶ q0q0'
+Final∶ q0q0', q1q0', q2q0', q0qd', q1q0', q1qd', q2q0', q2qd', qdq0', qdq1', qdqd'
+same rule follows for character 'd' as in number 5.
+Transitions∶
+q0q0' ⟶ q0q0' on a
+q0q0' ⟶ q1q1' on b
+q1q0' ⟶ q2q0' on a
+q1q0' ⟶ qdq1' on b
+q2q0' ⟶ qdq0' on a
+q2q0' ⟶ qdq1' on b
+q0q1' ⟶ q0q1' on a
+q0q1' ⟶ q1q1' on b
+q1q1' ⟶ q2q1' on a
+q1q1' ⟶ qdq1' on b
+q2q1' ⟶ qdq1' on a
+q2q1' ⟶ qdq1' on b
+qdq0' ⟶ qdq0' on a
+qdq0' ⟶ qdq1' on b
+qdq1' ⟶ qdq1' on a
+qdq1' ⟶ qdq1' on b
+q0qd' ⟶ q0qd' on a
+q0qd' ⟶ q1qd' on b
+q1qd' ⟶ q2qd' on a
+q1qd' ⟶ qdqd' on b
+q2qd' ⟶ qdqd' on a
+q2qd' ⟶ qdqd' on b
+qdqd' ⟶ qdqd' on a
+qdqd' ⟶ qdqd' on b
+b.)
+M = (Q, Σ, δ, q0, F)
+M' = (Q, Σ, δ, q0, F') and L(M') = Σ* \ L(M)
+States∶ Q' = Q
+Σ' = Σ
+q0' = q0
+δ' = δ
+F' = Q \ F
+c.)
+The original DFA M accepts a string ∈ Σ* if after computing it the DFA is in a state qf ∈ F
+if a string is accepted in the complement DFA M' meaning it is ∈ Σ*, after processing if the DFA is not in qf ∈ F it cannot end up in a state where q ∈ Q ∕ F
+every string ∈ Σ( must either end in a state that is in F or in Q \ F. M' will accept those strings that M does not accept. Thus it effectively recognizes the compliment of L(M). Because it's closed under complement it means that there is a DFA recognizable language and it is also closed under the complement Σ* \ L. Since M' is always possible for M this gurantees that the class of regular languages is closed under comlement.

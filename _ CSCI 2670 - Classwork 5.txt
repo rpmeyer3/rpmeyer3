@@ -1,0 +1,103 @@
+_> CSCI 2670 - Classwork 5
+__ <!> Instructions
+|> Create a \graf document with your answers to the following problems.  Save your work as a Grafstate file with the extension **{.graf.txt} and upload it to eLC.
+|> You may work in small groups.  You must identify your group on eLC.
+|> Only one student in the group should do the eLC  submission
+|> Look at your file when you save it and *{before} submitting it to eLC to make sure it is what you intend to submit.  Check eLC *{after} submitting your file to make sure the correct file was uploaded.  It is your responsibility to submit the correct file.
+|> The last version of your answer file that you submit before the deadline is the one that will be graded. If you submit the wrong file and submit a replacement after the deadline, then the usual late policy will apply.
+|>  All computational structures (i.e., automata and grammars) should be coded using Grafstate \[:+] syntax. Working automata code should produce a state diagram.
+|>  All Grafstate files should compile when the TA loads them into the Grafstate Shell. A file that does not compile will not be graded.
+\;
+Group members:
+1.)_____________________
+2.)_____________________
+3.)_____________________
+4.)_____________________
+5.)_____________________
+\;
+__ @{task} Exercises
+**{Section 1.5}: #1-4
+1.) E = {10^n10^n | n \ge 1}
+s = xyz
+|xy| \le  p
+|y| \ge 1
+\Ai \ge 0, xy^iz \in E-> pump middle part still belongs
+E is regular
+|s| \ge p
+s = 0^p10^P \in E since 10^n10^n w/ n = p
+x = 0^k
+y = 0^m
+z = 0^p^-^k^-^m10^p
+case i = 0 (removing y)
+xz = 0^k0^p^-^k^-^m10^p = 0^p^-^m10^p
+- has fewer than p zeros before 1 so its no longer of the form 0^n10^n
+0 before 1 < 0 after 1
+This makes xz \!in E
+case i = 2 (pumping  y once)
+xy^2z = 0^k0^2^m0^p^-^k^-^m10^p = 10^p^+^m10^p
+p-zero before the 1 so 0's before 1 is greater than 0's after the 1.
+Thus xy^2z \!in E
+E = {10^n10^n | n \ge 1} is not regular
+2.) B = { ww | w \in {0,1}*}
+s = xyz
+|xy| \le  p
+|y| \ge 1
+\Ai \ge 0, xy^iz \in B
+x = 0^k and k \le p
+y = 0^m and m \ge 1
+z = 0^p^-^k^-^m0^p
+case i = 0 (removing y)
+xz =  0^k0^p^-^k^-^m0^p
+xz = 0^p^-^m0^p
+xz = 0^2^p^-^m
+2p-m is not of form ww beacuse its length isn't 2p which is necessary to be a double
+xz \!in B
+case i = 2 (pump y once)
+xy^2z = 0^k0^2^m0^p^-^k^-^m0^p
+xy^2z = 0^p^+^m0^p - 0^2^p^+^m
+- Has 2p +m 0's which is also not of form ww because it is longer in length than 2p
+xy^2 \!in B
+B = { ww | w \in {0,1}*} is not regular
+3.) C = {0^i1^j | i > j }
+|xy| \le  p
+|y| \ge 1
+\Ai \ge 0, xy^iz \in C for all n \le 0
+s = 0^p1^p^-^1
+s |in due to:
+i = p
+j = p - 1
+i > j
+so s \in C and \s\ = p + (p -1) = 2p - 1 \le p
+decompose s into xyz following:
+|xy| \ge  p
+|y| > 0
+xy^nz \in C \A n \le 0
+since |xy| \ge  p the substring y must have only zeros.
+y = 0^k where k > 0
+xy^2z (repeats y twice)
+xy^2z = 0^p^+^k1^p^-^1
+# of zeros is p + k > p
+# of ones is p-1
+for xy^2z = 0^p^+^k1^p^-^1
+since k > 0 we have p + k > p > p -1
+making the string still satisfy i > j making xy^2z \in  C
+case n = 0 for example:
+xy^0z = xz = o^p^-^k1^p^-^1
+number of zeros is now p - k and number of ones p -1
+since k > 0 p-k \ge p-1 which implies i \ge j
+This contradicts i > j meaning pumped string xy^0z \!in C
+this makes C = {0^i1^j | i > j } not regular.
+4.) D = {0^2^n1^n | n \le 0 }
+\Ep > 0 satisfies pumping lemma
+let s = 0^2^p1^p in D since |s| \le p makes the PL apply
+|xy| \ge p and starts with ~{c} p 0's, so s = 0^i0^j^0^k1^p
+x = (00)^i
+x = 0^2^i
+y = (00)^j
+y = 0^2^j
+z = (00)^k1
+z = 0^2^k1^p
+i+j+k = p
+xyz = 0^4^i0^2^j0^2^k1^p
+xyz = 0^2^i^+^2^p1^p which is not in D
+D = {0^2^n1^n | n \le 0 } is not regular

@@ -1,0 +1,80 @@
+
+Ryan Meyer
+811274184
+
+1. Code Analysis (Pointers and Constants)
+
+(1a)
+- int *p1 = &x; - Valid
+- *p1 = 11; - Valid
+
+(1b)
+- const int *p2 = &x; - Valid
+- *p2 = 11; - Invalid
+- p2 = &y; - Valid
+
+(1c)
+- const int *const p3 = &x; - Valid
+- *p3 = 11; - Invalid
+- p3 = &y; - Invalid
+
+2. Array and Pointer Analysis
+
+(2a)
+- int *p1 = a; - Valid
+- const int *p2 = a; - Valid
+- const int *const p3 = a; - Valid
+
+(2b)
+- p1++; - Valid
+- p2++; - Valid
+- p3++; - Invalid
+
+(2c)
+- a = b; - Invalid
+- a++; - Invalid
+- (*a)++; - Valid
+
+3. Function Analysis with Constants and Pointers
+
+(3a)
+- int x = foo(); - Valid
+- x++; - Valid
+- foo()++; - Invalid
+
+(3b)
+- const int *p1 = bar(); - Valid
+- p1++; - Valid
+- (*p1)++; - Invalid
+- bar()++; - Invalid
+- (*bar())++; - Invalid
+
+(3c)
+- const int *p2 = baz(); - Valid
+- p2++; - Valid
+- (*p2)++; - Valid
+- baz()++; - Invalid
+- (*baz())++; - Valid
+
+4. Functions, Pointers, and Tricky Declarations
+
+(4a)
+- 44
+- 22
+
+(4b)
+&x is used because divBy2Again accepts a pointer to an integer, so passing the address allows the function to modify x.
+
+(4c)
+English meanings:
+- char **x; - x is a pointer to a pointer to a char.
+- int *x[5]; - x is an array of 5 pointers to int.
+- int (*x)[5]; - x is a pointer to an array of 5 integers.
+- int (*x[5])[5]; - x is an array of 5 pointers to arrays of 5 integers.
+- int *(*x[5])[5]; - x is an array of 5 pointers to arrays of 5 pointers to ints.
+- int x(); - x is a function that returns an int.
+- int x(int); - x is a function that takes an int argument and returns an int.
+- int *x(); - x is a function that returns a pointer to an int.
+- int *x(int *); - x is a function that takes a pointer to an int and returns a pointer to an int.
+- int (*x)(); - x is a pointer to a function that returns an int.
+- int **(*x)(int **); - x is a pointer to a function that takes a pointer to a pointer to an int and returns a pointer to a pointer to an int.

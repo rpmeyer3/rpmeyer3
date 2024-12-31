@@ -1,0 +1,371 @@
+_> CSCI 2670 - Classwork 4
+
+__ <!> Instructions
+
+|> Create a \graf document with your answers to the following problems.  Save your work as a Grafstate file with the extension **{.graf.txt} and upload it to eLC.
+|> You may work in small groups.  You must identify your group on eLC.
+|> Only one student in the group should do the eLC  submission
+|> Look at your file when you save it and *{before} submitting it to eLC to make sure it is what you intend to submit.  Check eLC *{after} submitting your file to make sure the correct file was uploaded.  It is your responsibility to submit the correct file.
+|> The last version of your answer file that you submit before the deadline is the one that will be graded. If you submit the wrong file and submit a replacement after the deadline, then the usual late policy will apply.
+|>  All computational structures (i.e., automata and grammars) should be coded using Grafstate \[:+] syntax. Working automata code should produce a state diagram.
+|>  All Grafstate files should compile when the TA loads them into the Grafstate Shell. A file that does not compile will not be graded.
+\;
+Group members:
+1.)_____________________
+2.)_____________________
+3.)_____________________
+4.)_____________________
+5.)_____________________
+\;
+
+__ @{task} Exercises
+
+**{Section 1.4}: #1
+
+:+ nfa N
+Q={s,q1,q2,q3,q4,q5,q6,q7,q8,r1,r2,r3,r4,r5,r6,r7,r8,r9,r10}
+S={a,b,c}
+d(s,\e) = {q1,r1}
+
+d(q1,\e) = {q2}
+d(q2,a)={q3}
+d(q3,\e)={q4}
+d(q4,\e)={q5,q7}
+d(q5,b)={q6}
+d(q6,\e)={q4,q7}
+d(q7,c)={q8}
+d(q8,\e)={q1}
+
+
+d(r1,\e) = {r2,r3}
+d(r3,a) = {r4}
+d(r2,a) = {r5}
+d(r5,\e) = {r6}
+d(r6,\e) = {r7,r8}
+d(r7,b) = {r9}
+d(r8,c) = {r10}
+d(r9,\e) = {r1,r3}
+d(r10,\e) = {r1,r3}
+
+q0=s
+F={r4}
+done.
+
+**{Section 1.4.1}: #1-5
+1.)
+:+ gnfa N_{Q5A0}
+Q={qs,q1,q2,q3,q4,qf}
+S={a,b}
+q0=qs
+F={qf}
+qs->q1:\e
+q1:a
+q1->q3:b
+q3:a
+q3->q2:b
+q3->qf:\e
+q2->q1:a
+q2->q4:b
+q2->qf:\e
+q4:b
+q4->q1:a
+done.
+
+:fig table
+# ::(bbw=.2 btw=.2 brw=.2 blw=.2)    	qs 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) q1	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) q2	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) q3	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) q4  # ::(bbw=.2 btw=.2 brw=.2 blw=.2) qf
+qs   	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)  	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) \e	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)   	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)   	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q1   	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)  	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) a 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)   	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) b 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q2   	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)  	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) a 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)   	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)   	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) b   # ::(bbw=.2 btw=.2 brw=.2 blw=.2) \e
+q3   	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)  	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)   	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) b 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) a 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) \e
+q4   	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)  	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) a 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)   	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)   	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) b   # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+qf   	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)  	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)   	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)   	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)   	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+
+done.
+
+2)
+:+ gnfa N1
+Q={qs,qf,q1,q2,q3}
+S={a,b, U}
+q0=qs
+F={qf}
+qs->q1:\e
+q1->q1:a
+q1->q3:b
+q2->q1:aUbb*a
+q3->q3:a
+q3->q2:b
+q3->qf:\e
+q2->qf:\e
+done.
+a) Q4
+b) q2 -> q4 -> q1
+:fig table
+# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	qs	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) qf	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) q1	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) q2	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) q3
+qs 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) \e	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+qf 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q1 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) a	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) b
+q2 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) \e	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) aUbb*a	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q3 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) \e	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) b	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) a
+
+done.
+
+:+ gnfa N2
+Q={qs,qf,q1,q3}
+S={a,b, U}
+q0=qs
+F={qf}
+qs->q1:\e
+q1->q1:a
+q1->q3:b
+q3->q3:a
+q3->q1:b(aUbb*a)
+q3->qf:b
+done.
+a) Q2
+b) q3 -> q2 -> q1
+	q3 -> q2 -> qf
+
+:fig table
+# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	qs	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) qf	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) q1	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) q3
+qs 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) \e	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+qf 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q1 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) a	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) b
+q3 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) b	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) b(aUbb*a)	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) a
+
+done.
+
+
+:+ gnfa N3
+Q={qs,qf,q3}
+S={a,b, U}
+q0=qs
+F={qf}
+qs->q3:a*b
+q3->q3: (b)(aUbb*a)(a*b)Ua
+q3->qf:b
+done.
+a) Q1
+b) qs -> q1 -> q3
+	q3 -> q1 -> q3
+
+:fig table
+# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	qs	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) qf	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) q3
+qs 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) a*b
+qf 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q3 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) b	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)  (b)(aUbb*a)(a*b)Ua
+
+done.
+
+:+ gnfa N4
+Q={qs,qf}
+S={a,b,U}
+q0=qs
+F={qf}
+qs->qf: a*b((b)(aUbb*a)(a*b)Ua)*b
+done.
+a) Q3
+b) qs -> q3 -> qf
+
+:fig table
+# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	qs	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) qf
+qs 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)  a*b((b)(aUbb*a)(a*b)Ua)*b
+qf 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2) 	# ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+
+done.
+
+3.) (a*b)(a\ub(a\u(bb*a))b)*(\e\ub)
+
+4.)
+a.) bbbab
+The transition sequence in the original GNFA:
+>> st->q1->->q2->q4->q1->q3->qf
+The transition sequence after removing q4:
+>> st->q1->->q2->q1->q3->qf
+
+b.) The only difference is from q2 to q1. In the original, q4 is an intermediary. However, after removing q4, the regular expression derived from the preservation path q2->q4->q1 ensures we have a connection from q2 to q1 that is equivalent to the original transitions.
+c.) Any preservation paths can be replaced by the corresponding regular expression.
+
+5.)
+__ First variation: Remove the nodes with the greatest number of preservation paths.
+Remove q1:
+Paths:
+>> qs -> q1 -> q3, \d(qs,q3) = \ea*b
+>> q2 -> q1 -> q3, \d(q2,q1) = aa*b
+>> q4 -> q1 -> q3, \d(q4,q3) = aa*b
+
+:+ gnfa N_{Q5A1}
+Q={qs,q2,q3,q4,qf}
+S={a,b}
+q0=qs
+F={qf}
+qs->q3:a*b
+q3:a
+q3->q2:b
+q3->qf:\e
+q2->q3:aa*b
+q2->q4:b
+q2->qf:\e
+q4:b
+q4->q3:aa*b
+done.
+
+:fig table
+N_{Q5A1} # ::(bbw=.2 btw=.2 brw=.2 blw=.2)qs # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q1 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q2 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q3 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q4 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)qf
+qs # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)a*b # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q1 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q2 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)aa*b # ::(bbw=.2 btw=.2 brw=.2 blw=.2)b # ::(bbw=.2 btw=.2 brw=.2 blw=.2)\e
+q3 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)b # ::(bbw=.2 btw=.2 brw=.2 blw=.2)a # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)\e
+q4 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2  brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)aa*b # ::(bbw=.2 btw=.2 brw=.2 blw=.2)b # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+qf # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+done.
+
+Remove q3:
+Paths:
+>> qs -> q3 -> qf, \d(qs,qf) = a*ba*\e
+>> qs -> q3 -> q2, \d(qs,q2) = a*ba*b
+>> q2 -> q3 -> q2, \d(q2,q2) =  aa*ba*b
+>> q2 -> q3 -> qf, \d(q2,qf) = aa*ba*\e
+>> q4 -> q3 -> qf, \d(q4,qf) = aa*ba*\e
+>> q4 -> q3 -> q2, \d(q4,q2) = aa*ba*b
+
+:+ gnfa N_{Q5A2}
+Q={qs,q2,q4,qf}
+S={a,b}
+q0=qs
+F={qf}
+qs->q2:a*ba*b
+qs->qf:a*ba*
+q2->q2:aa*ba*
+q2->q4:b
+q2->qf:\e\u(aa*ba*)
+q4:b
+q4->q2:aa*ba*b
+q4->qf:aa*ba*b
+done.
+
+:fig table
+N_{Q5A2} # ::(bbw=.2 btw=.2 brw=.2 blw=.2)qs # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q1 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q2 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q3 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q4 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)qf
+qs # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)a*ba*b # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)a*ba*
+q1 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q2 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)aa*ba* # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)b # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q3 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q4 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)aa*ba*b # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)b # ::(bbw=.2 btw=.2 brw=.2 blw=.2)aa*ba*b
+qf # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+done.
+
+Remove q2:
+Paths:
+>> qs -> q2 -> qf, \d(qs,qf) = a*ba*b(aa*ba*)*(\e\uaa*ba*)
+>> qs -> q2 -> q4, \d(qs,q4) = a*ba*b(aa*ba*)*b
+>> q4 -> q2 ->qf, \d(q4,qf) = aa*ba*b(aa*ba*)*(\e\uaa*ba*)
+>> q4 -> q2 -> q4, \d(q4,q4) = aa*ba*b(aa*ba*)*b
+
+:+ gnfa N_{Q5A3}
+Q={qs,q4,qf}
+S={a,b}
+q0=qs
+F={qf}
+qs->q4:(a*ba*b)(aa*ba*)*b
+qs->qf:(a*ba*) \u (a*ba*b(aa*ba*)*(\e\uaa*ba*))
+q4->q4:b\u(aa*ba*b(aa*ba*)*b)
+q4->qf:aa*ba*b
+done.
+
+:fig table
+N_{Q5A3} # ::(bbw=.2 btw=.2 brw=.2 blw=.2)qs # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q1 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q2 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q3 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q4 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)qf
+qs # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)(a*ba*b)(aa*ba*)*b # ::(bbw=.2 btw=.2 brw=.2 blw=.2)(a*ba*) \u (a*ba*b(aa*ba*)*(\e\uaa*ba*))
+q1 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q2 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q3 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q4 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)b\u(aa*ba*b(aa*ba*)*b) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)aa*ba*b
+qf # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+done.
+
+Remove q4:
+Path: qs -> q4 -> qf, \d(qs,qf) = ((a*ba*b)(aa*ba*)b)(b\uaa*ba*b(aa*ba*)*b)*(aa*ba*b) \u (a*ba*\ua*ba*b(aa*ba*)*(\e\uaa*ba*))
+
+:+ gnfa N_{Q5A4}
+Q={qs,qf}
+S={a,b}
+q0=qs
+F={qf}
+qs->qf:((a*ba*b)(aa*ba*)b)(b\uaa*ba*b(aa*ba*)*b)*(aa*ba*b) \u (a*ba*\ua*ba*b(aa*ba*)*(\e\uaa*ba*))
+done.
+
+:fig table
+N_{Q5A4} # ::(bbw=.2 btw=.2 brw=.2 blw=.2)qs # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q1 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q2 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q3 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q4 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)qf
+qs # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)((a*ba*b)(aa*ba*)b)(b\uaa*ba*b(aa*ba*)*b)*(aa*ba*b) \u (a*ba*\ua*ba*b(aa*ba*)*(\e\uaa*ba*))
+q1 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q2 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q3 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q4 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+qf # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+done.
+
+__ Second variation: Repeat question 2, but remove q3 BEFORE q1.
+
+Starting point after removal of q2:
+
+:+ gnfa N_{Q5B0}
+Q={qs,q1,q3,qf}
+S={a,b}
+q0=qs
+F={qf}
+qs->q1:\e
+q1:a
+q1->q3:b
+q3:a
+q3->q1:b(a\u(bb*a))
+q3->qf:\e\ub
+done.
+
+Remove q3:
+Paths:
+>> q1 -> q3 -> q1, \d(q1,q1) = ba*b(a\ubb*a)
+>> q1 -> q3 -> qf, \d(q1,qf) = ba*(\e\ub)
+
+:+ gnfa N_{Q5B1}
+Q={qs,q1,qf}
+S={a,b}
+q0=qs
+F={qf}
+qs->q1:\e
+q1:a\uba*b(a\ubb*a)
+q1->qf:ba*(\e\ub)
+done.
+
+:fig table
+N_{Q5B1} # ::(bbw=.2 btw=.2 brw=.2 blw=.2)qs # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q1 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q2 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q3 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q4 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)qf
+qs # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)\e # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q1 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)a\uba*b(a\ubb*a) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)ba*(\e\ub)
+q2 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q3 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q4 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+qf # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+done.
+
+
+Remove q1:
+Path: qs -> q1 -> qf, \d(qs,qf) = (a\uba*b(a\ubb*a))*ba*(\e\ub)
+
+:+ gnfa N_{Q5B2}
+Q={qs,qf}
+S={a,b}
+q0=qs
+F={qf}
+qs->qf:(a\uba*b(a\ubb*a))*ba*(\e\ub)
+done.
+
+:fig table
+N_{Q5B2} # ::(bbw=.2 btw=.2 brw=.2 blw=.2)qs # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q1 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q2 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q3 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)q4 # ::(bbw=.2 btw=.2 brw=.2 blw=.2)qf
+qs # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)(a\uba*b(a\ubb*a))*ba*(\e\ub)
+q1 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q2 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q3 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+q4 # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+qf # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2) # ::(bbw=.2 btw=.2 brw=.2 blw=.2)
+done.
+
+b.) The first attempt followed the ideal removal order, removing those nodes with the fewest preservation paths. The resulting regex was 10 characters long, not including operators and parentheses. On the first variation, the least ideal path was chosen, removing those nodes with the greatest number of preservation paths. The resulting regex was 44 characters long. It seems that each preservation path results in additional regex segments being added to the final result, and minimizing the total preservation paths needed reduces the length of the corresponding regex.
+
+c.) Always remove the node with the least number of preservation paths. This results in the fewest number of unique regular expressions that need to be combined in the end.

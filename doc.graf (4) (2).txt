@@ -1,0 +1,189 @@
+_> CSCI 2670 - Classwork 3
+__ <!> Instructions
+|> Create a \graf document with your answers to the following problems.  Save your work as a Grafstate file with the extension **{.graf.txt} and upload it to eLC.
+|> You may work in small groups.  You must identify your group on eLC.
+|> Only one student in the group should do the eLC  submission
+|> Look at your file when you save it and *{before} submitting it to eLC to make sure it is what you intend to submit.  Check eLC *{after} submitting your file to make sure the correct file was uploaded.  It is your responsibility to submit the correct file.
+|> The last version of your answer file that you submit before the deadline is the one that will be graded. If you submit the wrong file and submit a replacement after the deadline, then the usual late policy will apply.
+|>  All computational structures (i.e., automata and grammars) should be coded using Grafstate \[:+] syntax. Working automata code should produce a state diagram.
+|>  All Grafstate files should compile when the TA loads them into the Grafstate Shell. A file that does not compile will not be graded.
+\;
+Group members:
+1.)_____________________
+2.)_____________________
+3.)_____________________
+4.)_____________________
+5.)_____________________
+\;
+__ @{task} Exercises
+**{Section 1.3}: #1, 2, 3, 4, 5
+1.
+//
+//
+:+ nfa Union
+Q={q0, q1,q2,q3,q4,p1,p2,p3,p4}
+S={0,1}
+d(q0,\e)={q1,p1}
+d(q1,\e)={q4}
+d(q1,0)={q2,q3}
+d(q1,1)={q2}
+d(q2,0) = {q2}
+d(q2,1) = {q3}
+d(q3,0) = {q4}
+d(q4,1) = {q4}
+  /*Start of Nx2
+d(p1,1) = {p1,p3}
+d(p1,0) = {p2}
+d(p2,\e) = {p3}
+d(p2,1) = {p4}
+d(p3,0) = {p3}
+d(p3,1) = {p4}
+d(p4,0) = {p4}
+q0=q0
+F={q3,q4,p3,p4}
+done.
+//
+//
+Accepted Strings: "00", "11"   Not Accepted: "100101010101010", "101001"
+2.
+//
+//
+:+ nfa concatenation
+Q={q1,q2,q3,q4,p1,p2,p3,p4}
+S={0,1}
+d(q1,\e)={q4}
+d(q1,0)={q2,q3}
+d(q1,1)={q2}
+d(q2,0) = {q2}
+d(q2,1) = {q3}
+d(q3,\e) = {p1}
+d(q3,0) = {q4}
+d(q4,\e) = {p1}
+  /*Start of Nx2
+d(p1,1) = {p1,p3}
+d(p1,0) = {p2}
+d(p2,\e) = {p3}
+d(p2,1) = {p4}
+d(p3,0) = {p3}
+d(p3,1) = {p4}
+d(p4,0) = {p4}
+q0=q1
+F={q3,q4,p3,p4}
+done.
+//
+//
+3.
+//
+//
+:+ nfa star
+Q={q0, q1,q2,q3,q4}
+S={0,1}
+d(q0,\e)={q1}
+d(q1,0)={q2,q3}
+d(q1,1)={q2}
+d(q1,\e)={q4}
+d(q2,0) = {q2}
+d(q2,1) = {q3}
+d(q3,0) = {q4}
+d(q3,\e)={q1}
+d(q4,1) = {q4}
+d(q4,\e)={q1}
+q0=q0
+F={q3,q4}
+done.
+//
+//
+Accepted Strings: all strings that can be made with the alphabet
+4.
+//
+//
+:+ nfa nfa1
+  Q={q0, q1, q2, q3, q4}
+  S={0,1}
+  d(q0, \e)={q3, q4}
+  d(q4, 0)={q3}
+  d(q4, 1)={q4}
+  d(q4, \e)={q1}
+  d(q3, 1)={q2}
+  d(q3,0)={q1}
+  d(q2, 0)={q2,q1}
+  d(q2, 1)={q1}
+  q0=q0
+  F={q1, q2}
+done.
+//
+//
+b. I flipped the accept states and the non-accept states and then reversed the direction of each character being read. That is, if reading 1 in q2 goes to q3, reading 1 in q3 now goes to q2. There is a new start state that can epsilon into both the previous accept states.
+c. Because we're flipping the transitions and the accept and start states, we start at what would be the end of an accepting string and then working backwards on the path that string took to be an accepted string in the original machine.
+5.
+//
+//
+:+ nfa nfa2
+  Q={p0, p1, p2, p3, p4}
+  S={0,1}
+  d(p0, \e)={p3,p4}
+  d(p3,0)={p3}
+  d(p3,1)={p1}
+  d(p3,\e)={p2}
+  d(p4,0)={p4}
+  d(p4,1)={p2,p3}
+  d(p2,0)={p1}
+  d(p1,1)={p1}
+  q0=p0
+  F={p1,p2}
+done.
+//
+//
+b. 1001 and 1001 are accepted
+10110 and 00110 are rejected
+//
+**{Section 1.3.1}: #1
+//
+a.
+ec(q1) = {q1,q4,q2}
+ec(q2) = {q2}
+ec(q3) = {q3}
+ec(q4) = {q2,q4}
+b.
+//
+:+ nfa nfa
+Q={q1,q2,q3,q4}
+S={0,1}
+d(q1,0)={q2,q3}
+d(q1,1)={q2,q3,q4}
+d(q2,0)={q2,q3}
+d(q2,1)={q3}
+d(q3,0)={q2,q4}
+d(q3,1)={q3}
+d(q4,0)={q2,q3}
+d(q4,1)={q3}
+q0=q1
+F={q1,q3,q4}
+done.
+//
+c.
+//
+:+ dfa DFA-M
+Q={q_1q_2q_4, q_2q_3, q_1q_3, q_2q_3q_4, q_3, q_4, q_2, q_2q_4}
+S={0, 1}
+d(q_1q_2q_4,0)=q_2q_3
+d(q_1q_2q_4,1)=q_1q_3
+d(q_2q_3,0)=q_2q_3q_4
+d(q_2q_3,1)=q_3
+d(q_1q_3,0)=q_2q_3q_4
+d(q_1q_3,1)=q_1q_3
+d(q_2q_3q_4,0)=q_2q_3q_4
+d(q_2q_3q_4,1)=q_3
+d(q_3,0)=q_4
+d(q_3,1)=q_3
+d(q_4,0)=q_2q_3
+d(q_4,1)=q_3
+d(q_2,0)=q_2q_3
+d(q_2,1)=q_3
+d(q_2q_4,0)=q_2q_3
+d(q_2q_4,1)=q_3
+q0=q_1q_2q_4
+F={q_1q_2q_4, q_2q_3, q_1q_3, q_2q_3q_4, q_3, q_4, q_2q_4}
+done.
+//
+done
